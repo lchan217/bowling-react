@@ -7,7 +7,8 @@ class Game extends Component {
   constructor() {
     super();
     this.state = {
-      showStats: false
+      showStats: false,
+      game: []
     };
   }
 
@@ -21,20 +22,16 @@ class Game extends Component {
       turn: 2,
       gameOver: false
     };
+
     $.ajax({
       url: "http://localhost:3001/api/games",
       type: "POST",
       contentType: "application/json; charset=utf-8",
       data: JSON.stringify(body),
       dataType: "json",
-      context: this,
-      success: function(results) {
-        console.log(results);
-        this.setState({
-          showStats: true
-        });
-      }
+      context: this
     });
+    this.setState({ showStats: true });
   };
 
   showStats = () => {

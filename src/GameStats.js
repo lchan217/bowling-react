@@ -17,6 +17,11 @@ class GameStats extends Component {
     };
   }
 
+  componentDidMount() {
+    this.loadData();
+    setInterval(this.loadData, 2000);
+  }
+
   handlePins = numPins => {
     $.ajax({
       url: "http://localhost:3001/api/games",
@@ -39,6 +44,18 @@ class GameStats extends Component {
         <Dropdown.Menu>{items}</Dropdown.Menu>
       </Dropdown>
     );
+  };
+
+  loadData = () => {
+    $.ajax({
+      url: "http://localhost:3001/api/games",
+      type: "GET",
+      contentType: "application/json; charset=utf-8",
+      dataType: "json",
+      success: function(results) {
+        console.log(results);
+      }
+    });
   };
 
   render() {
