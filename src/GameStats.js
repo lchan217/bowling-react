@@ -35,16 +35,7 @@ class GameStats extends Component {
         <h1>Total Score: </h1>
         <h4>How Many Pins To Knock Down: </h4>
         {showDropDown()}
-        <h4>
-          Score:{" "}
-          {/* <Dropdown text='Pick A Number'>
-            <Dropdown.Menu>
-              <Dropdown.Item text='1' />
-              <Dropdown.Item text='2' />
-              <Dropdown.Item text='3' />
-            </Dropdown.Menu>
-          </Dropdown> */}
-        </h4>
+        <h4>Score: </h4>
         <Grid>
           <Grid.Column key={1}>1</Grid.Column>
           <Grid.Column key={2}>2</Grid.Column>

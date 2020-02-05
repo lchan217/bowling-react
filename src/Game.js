@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Button } from "semantic-ui-react";
 import GameStats from "./GameStats";
+import $ from "jquery";
 
 class Game extends Component {
   constructor() {
@@ -11,12 +12,11 @@ class Game extends Component {
   }
 
   handleClick = () => {
-    fetch("http://localhost:3001/api/games", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json"
-      }
+    $.ajax({
+      url: "http://localhost:3001/api/games",
+      type: "POST",
+      contentType: "application/json; charset=utf-8",
+      dataType: "json"
     });
 
     this.setState({ showStats: true });
