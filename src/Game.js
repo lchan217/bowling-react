@@ -12,14 +12,29 @@ class Game extends Component {
   }
 
   handleClick = () => {
+    let body = {
+      pins: 10,
+      score: {},
+      frame: 0,
+      spareBalls: 0,
+      strikeBalls: 0,
+      turn: 2,
+      gameOver: false
+    };
     $.ajax({
       url: "http://localhost:3001/api/games",
       type: "POST",
       contentType: "application/json; charset=utf-8",
-      dataType: "json"
+      data: JSON.stringify(body),
+      dataType: "json",
+      context: this,
+      success: function(results) {
+        console.log(results);
+        this.setState({
+          showStats: true
+        });
+      }
     });
-
-    this.setState({ showStats: true });
   };
 
   showStats = () => {

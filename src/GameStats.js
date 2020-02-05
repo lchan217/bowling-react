@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Grid, Dropdown } from "semantic-ui-react";
 import _ from "lodash";
+import $ from "jquery";
 
 class GameStats extends Component {
   constructor() {
@@ -16,10 +17,22 @@ class GameStats extends Component {
     };
   }
 
+  handlePins = numPins => {
+    $.ajax({
+      url: "http://localhost:3001/api/games",
+      type: "PUT",
+      contentType: "application/json; charset=utf-8",
+      data: JSON.stringify(numPins),
+      dataType: "json"
+    });
+  };
+
   showDropDown = () => {
     let numPins = this.state.pins;
     const items = _.times(numPins, i => (
-      <Dropdown.Item key={i + 1}>{i + 1}</Dropdown.Item>
+      <Dropdown.Item onClick={() => this.handlePins(i + 1)} key={i + 1}>
+        {i + 1}
+      </Dropdown.Item>
     ));
     return (
       <Dropdown text='Pick A Number'>
