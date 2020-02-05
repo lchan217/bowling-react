@@ -7,7 +7,6 @@ class GameStats extends Component {
   constructor() {
     super();
     this.state = {
-      id: 0,
       pins: 10,
       score: 0,
       frame: 0,
@@ -21,17 +20,35 @@ class GameStats extends Component {
 
   componentDidMount() {
     this.loadData();
-    setInterval(this.loadData, 2000);
+    setInterval(this.loadData, 10000); //change back to 2 seconds later
   }
 
   handlePins = numPins => {
+    let body = {
+      numPins: numPins,
+      turn: this.state.turn
+    };
     $.ajax({
       url: "http://localhost:3001/api/games",
       type: "PUT",
       contentType: "application/json; charset=utf-8",
-      data: JSON.stringify(numPins),
-      dataType: "json"
+      data: JSON.stringify(body),
+      dataType: "json",
+      context: this,
+      success: function(results) {
+        console.log(results);
+      }
     });
+    if (this.state.turn === 2) {
+      this.setState({
+        turn: 1
+      });
+      return;
+    } else {
+      this.setState({
+        turn: 2
+      });
+    }
   };
 
   showDropDown = () => {
@@ -63,7 +80,6 @@ class GameStats extends Component {
           frame: results.frame,
           spareBalls: results.spareBalls,
           strikeBalls: results.strikeBalls,
-          turn: results.turn,
           gameOver: results.game_over
         });
       }
