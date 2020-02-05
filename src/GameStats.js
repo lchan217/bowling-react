@@ -7,13 +7,15 @@ class GameStats extends Component {
   constructor() {
     super();
     this.state = {
+      id: 0,
       pins: 10,
-      score: {},
+      score: 0,
       frame: 0,
       spareBalls: 0,
       strikeBalls: 0,
       turn: 2,
-      gameOver: false
+      gameOver: false,
+      subScore: {}
     };
   }
 
@@ -52,20 +54,41 @@ class GameStats extends Component {
       type: "GET",
       contentType: "application/json; charset=utf-8",
       dataType: "json",
+      context: this,
       success: function(results) {
-        console.log(results);
+        this.setState({
+          id: results.id,
+          pins: results.pins,
+          score: results.score,
+          frame: results.frame,
+          spareBalls: results.spareBalls,
+          strikeBalls: results.strikeBalls,
+          turn: results.turn,
+          gameOver: results.game_over
+        });
       }
     });
+    this.updateSubScores();
+  };
+
+  updateSubScores = () => {
+    let scoreHash = {};
+    scoreHash[this.state.frame]
+      ? (scoreHash[this.state.frame] += this.state.score)
+      : (scoreHash[this.state.frame] = this.state.score);
+    this.setState({ subScore: scoreHash });
   };
 
   render() {
     const { showDropDown } = this;
+
     return (
       <div>
         <h1>Total Score: </h1>
         <h4>How Many Pins To Knock Down: </h4>
         {showDropDown()}
-        <h4>Score: </h4>
+        <h4>Score:</h4>
+
         <Grid>
           <Grid.Column key={1}>1</Grid.Column>
           <Grid.Column key={2}>2</Grid.Column>

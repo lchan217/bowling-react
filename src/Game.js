@@ -7,15 +7,14 @@ class Game extends Component {
   constructor() {
     super();
     this.state = {
-      showStats: false,
-      game: []
+      showStats: false
     };
   }
 
   handleClick = () => {
     let body = {
       pins: 10,
-      score: {},
+      score: 0,
       frame: 0,
       spareBalls: 0,
       strikeBalls: 0,
