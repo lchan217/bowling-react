@@ -1,21 +1,49 @@
 import React, { Component } from "react";
 import { Grid, Dropdown } from "semantic-ui-react";
+import _ from "lodash";
 
 class GameStats extends Component {
+  constructor() {
+    super();
+    this.state = {
+      pins: 10,
+      score: {},
+      frame: 0,
+      spareBalls: 0,
+      strikeBalls: 0,
+      turn: 2,
+      gameOver: false
+    };
+  }
+
+  showDropDown = () => {
+    let numPins = this.state.pins;
+    const items = _.times(numPins, i => (
+      <Dropdown.Item key={i + 1}>{i + 1}</Dropdown.Item>
+    ));
+    return (
+      <Dropdown text='Pick A Number'>
+        <Dropdown.Menu>{items}</Dropdown.Menu>
+      </Dropdown>
+    );
+  };
+
   render() {
+    const { showDropDown } = this;
     return (
       <div>
         <h1>Total Score: </h1>
         <h4>How Many Pins To Knock Down: </h4>
+        {showDropDown()}
         <h4>
           Score:{" "}
-          <Dropdown text='Pick A Number'>
+          {/* <Dropdown text='Pick A Number'>
             <Dropdown.Menu>
               <Dropdown.Item text='1' />
               <Dropdown.Item text='2' />
               <Dropdown.Item text='3' />
             </Dropdown.Menu>
-          </Dropdown>
+          </Dropdown> */}
         </h4>
         <Grid>
           <Grid.Column key={1}>1</Grid.Column>
