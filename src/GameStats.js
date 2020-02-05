@@ -14,13 +14,13 @@ class GameStats extends Component {
       strikeBalls: 0,
       turn: 2,
       gameOver: false,
-      subScore: {}
+      scoreHash: {}
     };
   }
 
   componentDidMount() {
     this.loadData();
-    setInterval(this.loadData, 10000); //change back to 2 seconds later
+    setInterval(this.loadData, 2000);
   }
 
   handlePins = numPins => {
@@ -39,6 +39,7 @@ class GameStats extends Component {
         console.log(results);
       }
     });
+
     if (this.state.turn === 2) {
       this.setState({
         turn: 1
@@ -80,19 +81,11 @@ class GameStats extends Component {
           frame: results.frame,
           spareBalls: results.spareBalls,
           strikeBalls: results.strikeBalls,
-          gameOver: results.game_over
+          gameOver: results.game_over,
+          scoreHash: results.score_hash
         });
       }
     });
-    this.updateSubScores();
-  };
-
-  updateSubScores = () => {
-    let scoreHash = {};
-    scoreHash[this.state.frame]
-      ? (scoreHash[this.state.frame] += this.state.score)
-      : (scoreHash[this.state.frame] = this.state.score);
-    this.setState({ subScore: scoreHash });
   };
 
   render() {

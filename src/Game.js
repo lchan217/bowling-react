@@ -15,7 +15,7 @@ class Game extends Component {
     let body = {
       pins: 10,
       score: 0,
-      frame: 0,
+      frame: 1,
       spareBalls: 0,
       strikeBalls: 0,
       turn: 2,
