@@ -79,7 +79,7 @@ class GameStats extends Component {
   };
 
   render() {
-    const { showTotalScore, showDropDown } = this;
+    const { showDropDown } = this;
 
     return (
       <div>
