@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { Grid, Dropdown } from "semantic-ui-react";
+import { Dropdown } from "semantic-ui-react";
 import _ from "lodash";
 import $ from "jquery";
+import ScoreGrid from "./ScoreGrid";
 
 class GameStats extends Component {
   constructor() {
@@ -25,8 +26,7 @@ class GameStats extends Component {
 
   handlePins = numPins => {
     let body = {
-      numPins: numPins,
-      turn: this.state.turn
+      numPins: numPins
     };
     $.ajax({
       url: "http://localhost:3001/api/games",
@@ -39,17 +39,6 @@ class GameStats extends Component {
         console.log(results);
       }
     });
-
-    if (this.state.turn === 2) {
-      this.setState({
-        turn: 1
-      });
-      return;
-    } else {
-      this.setState({
-        turn: 2
-      });
-    }
   };
 
   showDropDown = () => {
@@ -97,19 +86,7 @@ class GameStats extends Component {
         <h4>How Many Pins To Knock Down: </h4>
         {showDropDown()}
         <h4>Score:</h4>
-
-        <Grid>
-          <Grid.Column key={1}>1</Grid.Column>
-          <Grid.Column key={2}>2</Grid.Column>
-          <Grid.Column key={3}>3</Grid.Column>
-          <Grid.Column key={4}>4</Grid.Column>
-          <Grid.Column key={5}>5</Grid.Column>
-          <Grid.Column key={6}>6</Grid.Column>
-          <Grid.Column key={7}>7</Grid.Column>
-          <Grid.Column key={8}>8</Grid.Column>
-          <Grid.Column key={9}>9</Grid.Column>
-          <Grid.Column key={10}>10</Grid.Column>
-        </Grid>
+        <ScoreGrid scores={this.state.scoreHash} />
       </div>
     );
   }
