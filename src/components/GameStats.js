@@ -76,6 +76,9 @@ class GameStats extends Component {
         });
       }
     });
+    if (this.state.gameOver) {
+      alert("Game over! ");
+    }
   };
 
   render() {
