@@ -3,6 +3,7 @@ import { Dropdown } from "semantic-ui-react";
 import _ from "lodash";
 import $ from "jquery";
 import ScoreGrid from "./ScoreGrid";
+import ScoreTotal from "./ScoreTotal";
 
 class GameStats extends Component {
   constructor() {
@@ -78,14 +79,16 @@ class GameStats extends Component {
   };
 
   render() {
-    const { showDropDown } = this;
+    const { showTotalScore, showDropDown } = this;
 
     return (
       <div>
         <h1>Total Score: </h1>
         <h4>How Many Pins To Knock Down: </h4>
         {showDropDown()}
-        <h4>Score:</h4>
+        <h4>
+          Score: <ScoreTotal scores={this.state.scoreHash} />
+        </h4>
         <ScoreGrid scores={this.state.scoreHash} />
       </div>
     );
