@@ -12,7 +12,7 @@ const ScoreGrid = props => {
   ));
   return (
     <div>
-      Scores
+      <h3>Scores</h3>
       <Grid>{columns}</Grid>
     </div>
   );

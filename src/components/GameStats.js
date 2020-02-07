@@ -3,7 +3,6 @@ import { Dropdown } from "semantic-ui-react";
 import _ from "lodash";
 import $ from "jquery";
 import ScoreGrid from "./ScoreGrid";
-import ScoreTotal from "./ScoreTotal";
 
 class GameStats extends Component {
   constructor() {
@@ -16,12 +15,12 @@ class GameStats extends Component {
       strikeBalls: 0,
       turn: 2,
       gameOver: false,
-      scoreHash: {}
+      scoreHash: {},
+      totalScore: 0
     };
   }
 
   componentDidMount() {
-    this.loadData();
     setInterval(this.loadData, 2000);
   }
 
@@ -64,6 +63,7 @@ class GameStats extends Component {
       dataType: "json",
       context: this,
       success: function(results) {
+        console.log(results);
         this.setState({
           id: results.id,
           pins: results.pins,
@@ -72,7 +72,8 @@ class GameStats extends Component {
           spareBalls: results.spareBalls,
           strikeBalls: results.strikeBalls,
           gameOver: results.game_over,
-          scoreHash: results.score_hash
+          scoreHash: results.score_hash,
+          totalScore: results.total_score
         });
       }
     });
@@ -86,12 +87,10 @@ class GameStats extends Component {
 
     return (
       <div>
-        <h1>Total Score: </h1>
+        <br />
         <h4>How Many Pins To Knock Down: </h4>
         {showDropDown()}
-        <h4>
-          Score: <ScoreTotal scores={this.state.scoreHash} />
-        </h4>
+        <h3>Total Score: {this.state.totalScore}</h3>
         <ScoreGrid scores={this.state.scoreHash} />
       </div>
     );
