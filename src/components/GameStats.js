@@ -3,6 +3,7 @@ import { Dropdown } from "semantic-ui-react";
 import _ from "lodash";
 import $ from "jquery";
 import ScoreGrid from "./ScoreGrid";
+import "./GameStats.css";
 
 class GameStats extends Component {
   constructor() {
@@ -77,13 +78,22 @@ class GameStats extends Component {
         });
       }
     });
+  };
+
+  showGameOver = () => {
     if (this.state.gameOver) {
-      alert("Game over! ");
+      return (
+        <div className='game-over'>
+          Game Over! <br />
+          <br />
+          Refresh to start a new game
+        </div>
+      );
     }
   };
 
   render() {
-    const { showDropDown } = this;
+    const { showGameOver, showDropDown } = this;
 
     return (
       <div>
@@ -92,6 +102,7 @@ class GameStats extends Component {
         {showDropDown()}
         <h3>Total Score: {this.state.totalScore}</h3>
         <ScoreGrid scores={this.state.scoreHash} />
+        {showGameOver()}
       </div>
     );
   }
