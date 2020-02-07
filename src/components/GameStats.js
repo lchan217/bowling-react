@@ -64,7 +64,6 @@ class GameStats extends Component {
       dataType: "json",
       context: this,
       success: function(results) {
-        console.log(results);
         this.setState({
           id: results.id,
           pins: results.pins,
@@ -85,6 +84,9 @@ class GameStats extends Component {
       return (
         <div className='game-over'>
           Game Over! <br />
+          <br />
+          You scored {this.state.totalScore}
+          <br />
           <br />
           Refresh to start a new game
         </div>
